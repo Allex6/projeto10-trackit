@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Playball&display=swap');
+
+body {
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
+
+.color-success {
+    color: #8FC549;
+}
+
+.login-register-page {
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.big-logo {
+    margin-top: 68px;
+    margin-bottom: 32px;
+}
+
+.login-register-page form {
+    flex-direction: column;
+    align-items: center;
+}
+
+form .form-group input {
+    width: 300px;
+    height: 45px;
+    padding-left: 10px;
+    border: solid 1px #d4d4d4;
+    color: #bbbbbb;
+    font-size: 20px;
+    margin-bottom: 6px;
+    box-sizing: border-box;
+}
+
+.login-register-page form button {
+    width: 300px;
+    height: 45px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    background-color: #52b6ff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: none;
+}
+
+.login-register-page form a {
+    margin-top: 25px;
+    color: #52b6ff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 70px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 0 16px;
+    align-items: center;
+    background-color: #126ba5;
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.15);
+    z-index: 1;
+}
+
+.header h1 {
+    font-family: 'Playball', cursive;
+    font-size: 36px;
+    color: #fff;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    background-color: #fff;
+    z-index: 1;
+}
+
+.footer h4 {
+    color: #52b6ff;
+    font-size: 18px;
+}
+
+.page {
+    background-color: #f2f2f2;
+    padding: 100px 18px;
+    padding-bottom: 120px;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.page .page-title h3 {
+    color: #126ba5;
+    font-size: 22px;
+}
+
+.page .page-title p {
+    color: #666;
+    margin-top: 8px;
+}
+
+.page .page-title p.color-success {
+    color: #8FC549;
+}
+
+.habits-page .page-title {
+    justify-content: space-between;
+}
+
+.habits-page .page-title button {
+    width: 40px;
+    height: 35px;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 26px;
+    border: none;
+    background-color: #52b6ff;
+}
+
+.habits-page .habits-list .no-habits p {
+    color: #666;
+    margin-top: 28px;
+    font-size: 18px;
+}
+
+.habits-page .add-habit {
+    background-color: #fff;
+    width: 100%;
+    border-radius: 5px;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 18px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.days-list {
+    width: 300px;
+}
+
+.days-list .day {
+    margin-right: 4px;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: solid 1px #d4d4d4;
+    color: #dbdbdb;
+}
+
+.days-list .day.selected {
+    border: solid 1px #cfcfcf;
+    color: #fff;
+    background-color: #cfcfcf;
+}
+
+.habits-page .add-habit .buttons {
+    width: 100%;
+    margin-top: 28px;
+    justify-content: flex-end;
+}
+
+.habits-page .add-habit .buttons .cancel-btn {
+    margin-right: 24px;
+    background: none;
+    color: #52b6ff;
+}
+
+.habits-page .add-habit .buttons .save-btn {
+    background-color: #52b6ff;
+    color: #fff;
+}
+
+.habits-page .add-habit .buttons button {
+    height: 35px;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    width: 84px;
+    border-radius: 5px;
+}
+
+.habits-page .habits-list .habit-item {
+    background-color: #fff;
+    padding: 16px;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.habits-page .habits-list .habit-item h6 {
+    color: #666;
+    margin: 10px 0;
+}
+
+.habits-page .habits-list .habit-item ion-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #666;
+    font-size: 16px;
+}
+
+.today-page .habits-list {
+    margin-top: 28px;
+}
+
+.today-page .habits-list .habit-item {
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 14px;
+    border-radius: 5px;
+}
+
+.today-page .habits-list .habit-item .action ion-icon {
+    font-size: 68px;
+    color: #ebebeb;
+}
+
+.today-page .habits-list .habit-item.done .action ion-icon,
+.today-page .habits-list .habit-item.done .info .sequence,
+.today-page .habits-list .habit-item.done.new-record .info .record {
+    color: #8FC549;
+}
+
+.today-page .habits-list .habit-item .info {
+    color: #666;
+}
+
+.today-page .habits-list .habit-item .info h5 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.today-page .habits-list .habit-item .info p {
+    font-size: 12px;
+}
+
