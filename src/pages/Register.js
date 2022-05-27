@@ -1,8 +1,12 @@
 /* jshint esversion:11 */
 
+import { Link } from "react-router-dom";
+import FormButton from "./components/FormButton";
 import Logo from "./components/Logo";
 
 export default function Register(){
+
+    // os inputs precisam ser desabilitados quando o submit for feito, então precisamos de uma variável de controle.
 
     return (
         <div className="login-register-page d-flex">
@@ -26,8 +30,11 @@ export default function Register(){
                     <input type="text" placeholder="Foto" required />
                 </div>
 
-                <button>Cadastrar</button>
-                <a href="/">Já tem uma conta ? Faça login!</a>
+                <FormButton text="Cadastrar" loading={false} />
+
+                <Link to="/">
+                    Já tem uma conta ? Faça login!
+                </Link>
 
             </form>
 
