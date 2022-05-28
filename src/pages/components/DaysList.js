@@ -25,19 +25,46 @@ const Wrapper = styled.div`
 
 `;
 
-export default function DaysList(){
+function Day({ letter, isSelected, setSelectedDays, selectedDays, index, disabled }){
 
-    
+    function toggleSelectedDay(){
+
+        if(disabled) return false;
+
+        const selectedDayIndex = selectedDays.indexOf(index);
+
+        if(selectedDayIndex > -1){
+            
+            selectedDays.splice(selectedDayIndex, 1);
+            setSelectedDays([...selectedDays]);
+
+        } else {
+            setSelectedDays([...selectedDays, index]);
+        }
+
+    }
+
+    return (
+        <div onClick={toggleSelectedDay} className={`day ${isSelected ? 'selected' : ''} d-flex`}>{letter}</div>
+    );
+
+}
+
+export default function DaysList({ selectedDays, setSelectedDays, disabled }){
+
+    const weekDays = ['D', 'S','T','Q','Q','S','S'];
+
     return (
         <Wrapper className="d-flex">
-            <div className="day d-flex">D</div>
-            <div className="day d-flex">S</div>
-            <div className="day selected d-flex">T</div>
-            <div className="day d-flex">Q</div>
-            <div className="day d-flex">Q</div>
-            <div className="day d-flex">S</div>
-            <div className="day d-flex">S</div>
+            { weekDays.map((day, dayIndex) => <Day selectedDays={selectedDays} setSelectedDays={setSelectedDays} index={dayIndex} letter={day} isSelected={selectedDays.indexOf(dayIndex) > -1} disabled={disabled} />) }
         </Wrapper>
     );
 
 }
+
+/*<div className="day d-flex">S</div>
+            <div className="day selected d-flex">T</div>
+            <div className="day d-flex">Q</div>
+            <div className="day d-flex">Q</div>
+            <div className="day d-flex">S</div>
+            <div className="day d-flex">S</div>*/

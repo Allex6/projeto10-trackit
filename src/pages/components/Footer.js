@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useContext } from 'react';
+import UserContext from '../../contexts/UserContext';
 
 const FooterWrapper = styled.div`
 
@@ -32,9 +34,10 @@ const FooterWrapper = styled.div`
 
 export default function Footer(){
 
-    
-    /**/
+    const { todayHabits } = useContext(UserContext);
 
+    const concludedHabits = todayHabits.filter(item => item.done);
+    const concludedPercentage = (concludedHabits.length > 0) ? Math.round((concludedHabits.length / todayHabits.length) * 100) : '';
     
     return (
         <FooterWrapper className="d-flex" >
@@ -45,7 +48,7 @@ export default function Footer(){
             <Link to="/hoje">
                 <div style={{ width: '100px', height: '100px', marginTop: '-60px' }}>
                     <CircularProgressbar
-                        value={66}
+                        value={concludedPercentage}
                         text="Hoje"
                         background={true}
                         backgroundPadding="6"

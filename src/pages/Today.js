@@ -1,10 +1,16 @@
 /* jshint esversion:11 */
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
+
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import StyledPage from "./components/StyledPage";
 import styled from 'styled-components';
 import PageTitle from "./components/PageTitle";
+import { useContext, useEffect } from "react";
+import UserContext from "../contexts/UserContext";
+import axios from 'axios';
 
 const HabitsList = styled.div`
 
@@ -44,79 +50,111 @@ const HabitsList = styled.div`
     }
 `;
 
+function HabitItem({ habitName, currentSequence, highestSequence, done, id, todayHabits, setTodayHabits, userToken }){
+
+    function toggleDone(id){
+
+        const habit = todayHabits.find(item => item.id === id);
+
+        const requestURL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/${(habit.done) ? 'uncheck' : 'check'}`;
+        
+        const requestConfig = {
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        };
+
+        axios.post(requestURL, {}, requestConfig).then(response=>{
+
+            axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`, requestConfig).then(response=>{
+
+                setTodayHabits(response.data);
+
+            }).catch(err=>{
+                console.log(err);
+                alert('Ocorreu um erro ao carregar a lista de hábitos diários.');
+            });
+
+        }).catch(err=>{
+            console.log(err);
+            alert('Ocorreu um erro. Tente novamente.');
+        });
+
+    }
+    
+    return (
+        <div className={`habit-item ${done ? 'done' : ''} ${(currentSequence >= highestSequence) ? 'new-record' : '' } d-flex`}>
+            <div className="info">
+                <h5>{habitName}</h5>
+                <p>Sequência atual: <span className="sequence">{currentSequence} dias</span></p>
+                <p>Seu recorde: <span className="record">{highestSequence} dias</span></p>
+            </div>
+            <div className="action">
+                <ion-icon name="checkbox" onClick={() => toggleDone(id)}></ion-icon>
+            </div>
+        </div>
+    );
+
+}
+
+function PageDescription({ todayHabits }){
+
+    const concludedHabits = todayHabits.filter(item => item.done);
+    const concludedPercentage = (concludedHabits.length > 0) ? Math.round((concludedHabits.length / todayHabits.length) * 100) : '';
+
+    return (
+        <p className=
+            {
+                (concludedHabits.length > 0) ? 'color-success' : ''
+            }>
+            {
+                (concludedHabits.length > 0) ? `${concludedPercentage}% dos hábitos concluídos` : 'Nenhum hábito concluído ainda'
+            }
+        </p>
+    );
+
+}
+
 export default function Today(){
+
+    const { user, setUser, todayHabits, setTodayHabits } = useContext(UserContext);
+    dayjs.locale('pt-br');
+
+    useEffect(()=>{
+
+        const requestConfig = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        };
+
+        axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`, requestConfig).then(response=>{
+
+            setTodayHabits(response.data);
+
+        }).catch(err=>{
+            console.log(err);
+            alert('Ocorreu um erro ao carregar a lista de hábitos diários.');
+        });
+
+    }, []);
     
     return (
         <>
-            <Header />
+            <Header userImage={user.image} />
                 <StyledPage className="today-page">
 
                     <PageTitle>
-                        <h3>Quarta, 25/05</h3>
-                        <p className="color-success">Nenhum hábito concluído ainda</p>
+                        <h3>{dayjs().format('dddd[,] DD/MM')}</h3>
+                        <PageDescription todayHabits={todayHabits} />
                     </PageTitle>
 
                     <HabitsList className="habits-list">
-                        <div className="habit-item d-flex">
-                            <div className="info">
-                                <h5>Ler 1 capítulo de livro</h5>
-                                <p>Sequência atual: <span className="sequence">3 dias</span></p>
-                                <p>Seu recorde: <span className="record">5 dias</span></p>
-                            </div>
-                            <div className="action">
-                                <ion-icon name="checkbox"></ion-icon>
-                            </div>
-                        </div>
-                        <div className="habit-item done new-record d-flex">
-                            <div className="info">
-                                <h5>Ler 1 capítulo de livro</h5>
-                                <p>Sequência atual: <span className="sequence">3 dias</span></p>
-                                <p>Seu recorde: <span className="record">5 dias</span></p>
-                            </div>
-                            <div className="action">
-                                <ion-icon name="checkbox"></ion-icon>
-                            </div>
-                        </div>
-                        <div className="habit-item d-flex">
-                            <div className="info">
-                                <h5>Ler 1 capítulo de livro</h5>
-                                <p>Sequência atual: <span className="sequence">3 dias</span></p>
-                                <p>Seu recorde: <span className="record">5 dias</span></p>
-                            </div>
-                            <div className="action">
-                                <ion-icon name="checkbox"></ion-icon>
-                            </div>
-                        </div>
-                        <div className="habit-item d-flex">
-                            <div className="info">
-                                <h5>Ler 1 capítulo de livro</h5>
-                                <p>Sequência atual: <span className="sequence">3 dias</span></p>
-                                <p>Seu recorde: <span className="record">5 dias</span></p>
-                            </div>
-                            <div className="action">
-                                <ion-icon name="checkbox"></ion-icon>
-                            </div>
-                        </div>
-                        <div className="habit-item d-flex">
-                            <div className="info">
-                                <h5>Ler 1 capítulo de livro</h5>
-                                <p>Sequência atual: <span className="sequence">3 dias</span></p>
-                                <p>Seu recorde: <span className="record">5 dias</span></p>
-                            </div>
-                            <div className="action">
-                                <ion-icon name="checkbox"></ion-icon>
-                            </div>
-                        </div>
-                        <div className="habit-item done d-flex">
-                            <div className="info">
-                                <h5>Ler 1 capítulo de livro</h5>
-                                <p>Sequência atual: <span className="sequence">3 dias</span></p>
-                                <p>Seu recorde: <span className="record">5 dias</span></p>
-                            </div>
-                            <div className="action">
-                                <ion-icon name="checkbox"></ion-icon>
-                            </div>
-                        </div>
+
+                        {
+                            todayHabits.map(habit => <HabitItem habitName={habit.name} currentSequence={habit.currentSequence} highestSequence={habit.highestSequence} done={habit.done} id={habit.id} todayHabits={todayHabits} setTodayHabits={setTodayHabits} userToken={user.token} />)
+                        }
+                        
                     </HabitsList>
 
                 </StyledPage>

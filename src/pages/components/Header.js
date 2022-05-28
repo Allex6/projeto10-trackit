@@ -1,6 +1,8 @@
 /* jshint esversion:11 */
 
+import { useContext } from "react";
 import styled from "styled-components";
+import UserContext from "../../contexts/UserContext";
 
 
 const HeaderWrapper = styled.div`
@@ -23,14 +25,23 @@ const HeaderWrapper = styled.div`
         color: #fff;
     }
 
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: fill;
+    }
+
 `;
 
 export default function Header(){
+
+    const { user } = useContext(UserContext);
     
     return (
         <HeaderWrapper className="d-flex">
             <h1>TrackIt</h1>
-            <img src="./img/bob.png" alt="Minha imagem de perfil" />
+            <img src={user.image} alt="Minha imagem de perfil" />
         </HeaderWrapper>
     );
 
